@@ -124,6 +124,8 @@ nav.main a[aria-current] { color: var(--ink); }
 html.nav-open .navbtn span:nth-child(1) { top: 24px; transform: rotate(45deg); }
 html.nav-open .navbtn span:nth-child(2) { top: 24px; transform: rotate(-45deg); }
 
+/* Without hours or contacts the strip has nothing to show below 1080px */
+@media (max-width: 1080px) { html.bare-ubar { --ubar: 0px; } html.bare-ubar .ubar { display: none; } }
 .mnav { display: none; }
 @media (max-width: 1080px) {
   nav.main, .h-act .btn { display: none; }
@@ -485,6 +487,7 @@ section.block { padding: clamp(80px, 10vw, 150px) 0 0; }
 
 /* Contact */
 .contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(36px, 5vw, 96px); align-items: start; }
+.contact.solo { grid-template-columns: minmax(0, 860px); }
 .open-card { border-top: 1px solid var(--ink); padding: 22px 0 0; }
 .open-card .big { display: flex; align-items: center; gap: 14px; font-family: var(--serif); font-size: clamp(40px, 4.6vw, 64px); line-height: 1; }
 .open-card .big .dot { width: 12px; height: 12px; }

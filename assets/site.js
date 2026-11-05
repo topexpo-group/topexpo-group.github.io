@@ -295,7 +295,7 @@
         var data = {}; $$('input, select, textarea', form).forEach(function (f) { if (!f.name || (f.type === 'radio' && !f.checked)) return; data[f.name] = f.value; });
         data._subject = 'Enquiry for TopExpo: ' + (val('need') || 'event'); data.message_text = body;
         fetch(CFG.form_endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) })
-          .then(function (r) { if (!r.ok) throw new Error(r.status); finish('Thank you, ' + val('name').split(' ')[0] + '.', 'Your enquiry is with our team. We answer every day, around the clock.', body, false); })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); finish('Thank you, ' + val('name').split(' ')[0] + '.', 'Your enquiry is with our team.', body, false); })
           .catch(function () { btn.disabled = false; btn.textContent = 'Send enquiry'; finish('The form did not go through.', 'Copy the text below and send it to us by email.', body, true); });
         return;
       }
