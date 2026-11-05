@@ -36,6 +36,8 @@
     doc.classList.toggle('nav-open', open);
     if (toggle) { toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
     var m = $('#mnav'); if (m) m.inert = !open;
+    /* While the menu covers the screen, everything behind it leaves the Tab order */
+    $$('body > *').forEach(function (el) { if (el !== header && el !== m && el.tagName !== 'SCRIPT') el.inert = open; });
   }
   if (toggle) {
     setNav(false);
@@ -155,7 +157,10 @@
       cur = (i + items.length) % items.length;
       var it = items[cur];
       box.classList.remove('zoomed');
-      big.src = it.getAttribute('data-lb'); big.alt = it.getAttribute('data-lb-alt') || '';
+      var full = it.getAttribute('data-lb'), th = $('img', it);
+      /* The thumbnail shows whether this browser took the WebP source; the full image follows it */
+      if (th && /\.webp(\?|$)/.test(th.currentSrc)) full = full.replace(/\.jpg$/, '.webp');
+      big.src = full; big.alt = it.getAttribute('data-lb-alt') || '';
       $('.mono', lb).textContent = it.getAttribute('data-lb-meta') || '';
       $('h3', lb).textContent = it.getAttribute('data-lb-title') || '';
       $('.lb-body', lb).textContent = it.getAttribute('data-lb-text') || '';
